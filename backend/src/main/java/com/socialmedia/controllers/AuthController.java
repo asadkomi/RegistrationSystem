@@ -1,12 +1,13 @@
 package com.socialmedia.controllers;
 
+import com.socialmedia.exceptions.EmailAlreadyTakenException;
 import com.socialmedia.models.AppUser;
+import com.socialmedia.models.Registeration;
 import com.socialmedia.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/auth")
@@ -19,8 +20,13 @@ public class AuthController {
         this.userService = userService;
     }
 
+    @ExceptionHandler({EmailAlreadyTakenException.class})
+    public ResponseEntity<String> handleEmailTaken() {
+        return new ResponseEntity<String>("The email you provided is already in use", HttpStatus.CONFLICT);
+    }
+
     @PostMapping("/register")
-    public AppUser register(@RequestBody AppUser appUser){
-        return userService.registerUser(appUser);
+    public AppUser register(@RequestBody Registeration registeration){
+        return userService.registerUser(registeration);
     }
 }
