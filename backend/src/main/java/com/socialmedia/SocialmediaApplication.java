@@ -21,11 +21,11 @@ public class SocialmediaApplication {
     CommandLineRunner run(RoleRepository roleRepository, UserService userService) {
         return args -> {
             roleRepository.save(new Role(1, "USER"));
-            AppUser appUser = new AppUser();
-            appUser.setFirstName("Asad");
-            appUser.setLastName("Komi");
-
-            userService.registerUser(appUser);
+//            AppUser appUser = new AppUser();
+//            appUser.setFirstName("Asad");
+//            appUser.setLastName("Komi");
+//
+//            userService.registerUser(appUser);
         };
     }
 }
