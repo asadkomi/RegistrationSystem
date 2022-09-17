@@ -3,7 +3,7 @@ package com.socialmedia.controllers;
 import com.socialmedia.exceptions.EmailAlreadyTakenException;
 import com.socialmedia.exceptions.UserDoesNotExistException;
 import com.socialmedia.models.AppUser;
-import com.socialmedia.models.Registeration;
+import com.socialmedia.models.Registration;
 import com.socialmedia.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -29,8 +29,8 @@ public class AuthController {
     }
 
     @PostMapping("/register")
-    public AppUser register(@RequestBody Registeration registeration){
-        return userService.registerUser(registeration);
+    public AppUser register(@RequestBody Registration registration){
+        return userService.registerUser(registration);
     }
 
     @ExceptionHandler({UserDoesNotExistException.class})

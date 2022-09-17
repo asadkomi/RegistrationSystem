@@ -3,18 +3,18 @@ package com.socialmedia.models;
 
 import java.sql.Date;
 
-public class Registeration {
+public class Registration {
 
     private String firstName;
     private String lastName;
     private String email;
     private Date dob;
 
-    public Registeration() {
+    public Registration() {
         super();
     }
 
-    public Registeration(String firstName, String lastName, String email, Date dob) {
+    public Registration(String firstName, String lastName, String email, Date dob) {
         super();
         this.firstName = firstName;
         this.lastName = lastName;
