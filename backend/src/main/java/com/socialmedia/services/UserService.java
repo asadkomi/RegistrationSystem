@@ -2,6 +2,7 @@ package com.socialmedia.services;
 
 
 import com.socialmedia.exceptions.EmailAlreadyTakenException;
+import com.socialmedia.exceptions.UserDoesNotExistException;
 import com.socialmedia.models.AppUser;
 import com.socialmedia.models.Registeration;
 import com.socialmedia.models.Role;
@@ -57,5 +58,17 @@ public class UserService {
     private String generateUsername(String name){
         long generatedNumber = (long) Math.floor(Math.random()* 1_000_000_000);
         return name+generatedNumber;
+    }
+
+    public AppUser getUserByUsername(String username) {
+        return userRepository.findByUsername(username).orElseThrow(UserDoesNotExistException::new);
+    }
+
+    public AppUser updateUser(AppUser appUser) {
+        try{
+            return userRepository.save(appUser);
+        } catch (Exception e){
+            throw new EmailAlreadyTakenException();
+        }
     }
 }
