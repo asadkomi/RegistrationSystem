@@ -35,6 +35,12 @@ public class AppUser {
     @JsonIgnore
     private String password;
 
+    private Boolean enabled;
+
+    @Column(nullable = true)
+    @JsonIgnore
+    private Long verification;
+
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
             name="user_role",
@@ -45,6 +51,7 @@ public class AppUser {
 
     public AppUser() {
         this.authorities = new HashSet<>();
+        this.enabled = false;
     }
 
     public Integer getUserId() {
@@ -119,6 +126,22 @@ public class AppUser {
         this.authorities = authorities;
     }
 
+    public Boolean getEnabled() {
+        return enabled;
+    }
+
+    public void setEnabled(Boolean enabled) {
+        this.enabled = enabled;
+    }
+
+    public Long getVerification() {
+        return verification;
+    }
+
+    public void setVerification(Long verification) {
+        this.verification = verification;
+    }
+
     @Override
     public String toString() {
         return "AppUser{" +
@@ -130,6 +153,8 @@ public class AppUser {
                 ", dateOfBirth=" + dateOfBirth +
                 ", username='" + username + '\'' +
                 ", password='" + password + '\'' +
+                ", enabled=" + enabled +
+                ", verification=" + verification +
                 ", authorities=" + authorities +
                 '}';
     }

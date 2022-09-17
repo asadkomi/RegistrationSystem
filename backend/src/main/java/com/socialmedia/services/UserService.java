@@ -71,4 +71,15 @@ public class UserService {
             throw new EmailAlreadyTakenException();
         }
     }
+
+    public void generateEmailVerification(String username) {
+        AppUser appUser = userRepository.findByUsername(username).orElseThrow(UserDoesNotExistException::new);
+        appUser.setVerification(generateVerificationCode());
+
+        userRepository.save(appUser);
+    }
+
+    private Long generateVerificationCode() {
+        return (long) Math.floor(Math.random()* 1_000_000_000);
+    }
 }
