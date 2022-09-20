@@ -19,6 +19,9 @@ target/
 *.iml
 *.ipr
 
+**/resources/*.json
+**/StoredCredential
+
 ### NetBeans ###
 /nbproject/private/
 /nbbuild/

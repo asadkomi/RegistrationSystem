@@ -56,7 +56,7 @@ public class Registration {
 
     @Override
     public String toString() {
-        return "Registeration{" +
+        return "Registration{" +
                 "firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
                 ", email='" + email + '\'' +

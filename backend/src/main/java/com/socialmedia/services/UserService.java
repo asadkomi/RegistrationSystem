@@ -2,6 +2,7 @@ package com.socialmedia.services;
 
 
 import com.socialmedia.exceptions.EmailAlreadyTakenException;
+import com.socialmedia.exceptions.EmailFailedToSendException;
 import com.socialmedia.exceptions.UserDoesNotExistException;
 import com.socialmedia.models.AppUser;
 import com.socialmedia.models.Registration;
@@ -17,11 +18,13 @@ import java.util.Set;
 public class UserService {
     private final UserRepository userRepository;
     private final RoleRepository roleRepository;
+    private final MailService mailService;
 
     @Autowired
-    public UserService(UserRepository userRepository, RoleRepository roleRepository){
+    public UserService(UserRepository userRepository, RoleRepository roleRepository, MailService mailService){
         this.userRepository = userRepository;
         this.roleRepository = roleRepository;
+        this.mailService = mailService;
     }
 
     public AppUser registerUser(Registration registration){
@@ -75,6 +78,13 @@ public class UserService {
     public void generateEmailVerification(String username) {
         AppUser appUser = userRepository.findByUsername(username).orElseThrow(UserDoesNotExistException::new);
         appUser.setVerification(generateVerificationCode());
+
+        try {
+            mailService.sendEmail(appUser.getEmail(), "Your verification code", "Here is your verification code: "+ appUser.getVerification());
+            userRepository.save(appUser);
+        } catch (Exception e) {
+            throw new EmailFailedToSendException();
+        }
 
         userRepository.save(appUser);
     }

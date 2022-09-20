@@ -1,6 +1,7 @@
 package com.socialmedia.controllers;
 
 import com.socialmedia.exceptions.EmailAlreadyTakenException;
+import com.socialmedia.exceptions.EmailFailedToSendException;
 import com.socialmedia.exceptions.UserDoesNotExistException;
 import com.socialmedia.models.AppUser;
 import com.socialmedia.models.Registration;
@@ -46,6 +47,13 @@ public class AuthController {
         AppUser appUser = userService.getUserByUsername(username);
         appUser.setPhoneNumer(phone);
         return userService.updateUser(appUser);
+    }
+
+
+
+    @ExceptionHandler({EmailFailedToSendException.class})
+    public ResponseEntity<String> handleFailedEmail() {
+        return new ResponseEntity<String>("Email failed to send, try again in a moment",HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
     @PostMapping("/email/code")
