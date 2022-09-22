@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { TextInput } from "../../../../../components/TextInput/TextInput";
+import { ValidatedInput } from "../../../../../components/ValidatedInput/ValidatedInput";
 
 import "./RegFormOne.css";
 
@@ -29,23 +30,26 @@ export const RegFormOne: React.FC = () => {
   return (
     <div className="reg-step-one-container">
       <div className="reg-step-one-content">
-        <TextInput
+        <ValidatedInput
           name={"firstName"}
           label={"First"}
-          errorMessage={"Please enter you name"}
-          onChange={updateUser}
+          errorMessage={"Whats your name?"}
+          changeValue={updateUser}
+          validator={() => true}
         />
-        <TextInput
+        <ValidatedInput
           name={"lastName"}
           label={"Last"}
-          errorMessage={"Please enter you Last name"}
-          onChange={updateUser}
+          errorMessage={"Whats your name?"}
+          changeValue={updateUser}
+          validator={() => true}
         />
-        <TextInput
+        <ValidatedInput
           name={"email"}
-          label={"email"}
+          label={"Email"}
           errorMessage={"Please enter a valid email"}
-          onChange={updateUser}
+          changeValue={updateUser}
+          validator={() => true}
         />
       </div>
     </div>
