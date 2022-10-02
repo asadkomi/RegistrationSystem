@@ -17,3 +17,12 @@ export interface StyledInputProps {
   theme: Theme;
   color?: string;
 }
+
+export interface ValidatedInputState {
+  active: boolean;
+  valid: boolean;
+  typedIn: boolean;
+  labelActive: boolean;
+  labelColor: string;
+  value: string;
+}
